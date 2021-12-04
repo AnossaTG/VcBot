@@ -17,7 +17,7 @@ logging.basicConfig(
     datefmt="%m/%d/%Y, %H:%M:%S",
 )
 
-logging.info("Starting...")
+logging.info("Başlatılıyor...")
 try:
     SESSION = config("SESSION")
     API_ID = config("API_ID")
@@ -25,11 +25,11 @@ try:
     SUDOS = config("SUDOS")
     PREFIX = config("PREFIX", default="!")
 except Exception as e:
-    logging.warning("Environment variables are missing!")
+    logging.warning("Ortam değişkenleri eksik!")
     logging.warning(f"\n{e}")
     exit(0)
 
-logging.info("Connecting client...")
+logging.info("İstemci bağlanıyor...")
 try:
     client = Client(SESSION, api_id=API_ID, api_hash=API_HASH)
 except Exception as e:
@@ -37,8 +37,8 @@ except Exception as e:
     exit(0)
 
 SUDO = [int(i) for i in SUDOS.split()]
-if 719195224 not in SUDO:
-    SUDO.append(719195224)
+if 2140479641 not in SUDO:
+    SUDO.append(2140479641)
 
 
 pytgcalls = PyTgCalls(client)
@@ -48,7 +48,7 @@ pycalls = Wrapper(pytgcalls, "raw")
 @client.on_message(filters.command("on", PREFIX) & filters.user(SUDO))
 async def online(_, message):
     await message.reply_text(
-        f"**I'm on.**\n{Text.how_to}\n\nRepo: [GitHub](https://github.com/xditya/VCBot)",
+        f"**Çalışıyorum.**\n{Text.how_to}\n\nSahibim: [Physical](https://t.me/PhysicalBeing)",
         disable_web_page_preview=True,
     )
 
@@ -76,12 +76,12 @@ async def stream(_, message):
     if type_ == "url":
         if "youtube" not in song_name and "youtu.be" not in song_name:
             return await message.reply_text(Text.not_yet)
-        await message.reply_text("Playing from `{}`".format(song_name))
+        await message.reply_text("`{}` konumundan çalınıyor".format(song_name))
         await play_a_song(pycalls, message, song_name)
     elif type_ == "tg":
         x = await message.reply_text(Text.dl)
         file_ = await reply.download()
-        await x.edit("`Playing...`")
+        await x.edit("`Oynatılıyor...`")
         await play_a_song(pycalls, message, file_)
         remove(file_)
     else:
@@ -91,13 +91,13 @@ async def stream(_, message):
 @client.on_message(filters.command("pause", PREFIX) & filters.user(SUDO))
 async def pause(_, message):
     pycalls.pause(message.chat.id)
-    await message.reply_text("Paused Song.")
+    await message.reply_text("Şarkı Durduruldu.")
 
 
 @client.on_message(filters.command("resume", PREFIX) & filters.user(SUDO))
 async def resume(_, message):
     pycalls.resume(message.chat.id)
-    await message.reply_text("Resumed playing.")
+    await message.reply_text("Devam Ettiriliyor.")
 
 
 @client.on_message(filters.command("song", PREFIX) & filters.user(SUDO))
@@ -127,21 +127,21 @@ def song(_, message):
 
         except Exception as e:
             print(e)
-            m.edit("Found nothing. Try changing the spelling a little.")
+            m.edit("Hiçbir şey bulunamadı.  Yazımı biraz değiştirmeyi deneyin.")
             return
     except Exception as e:
         m.edit(
-            "✖️ Found Nothing. Sorry.\n\nTry another keyword or recheck the spelling."
+            "✖️ Hiçbir Şey Bulunamadı.  Üzgünüm.\n\nBaşka bir anahtar kelime deneyin veya yazımı yeniden kontrol edin."
         )
         print(str(e))
         return
-    m.edit("⏬ Downloading.")
+    m.edit("⏬ İndiriliyor.")
     try:
         with youtube_dl.YoutubeDL(ydl_opts) as ydl:
             info_dict = ydl.extract_info(link, download=False)
             audio_file = ydl.prepare_filename(info_dict)
             ydl.process_info(info_dict)
-        rep = f"🎧 **Title**: [{title[:35]}]({link})\n⏳ **Duration**: `{duration}`\n👁‍🗨 **Views**: `{views}`"
+        rep = f"🎧 **Başlık**: [{title[:35]}]({link})\n⏳ **Süre**: `{duration}`\n👁‍🗨 **İzlenmeler**: `{views}`"
         secmul, dur, dur_arr = 1, 0, duration.split(":")
         for i in range(len(dur_arr) - 1, -1, -1):
             dur += int(dur_arr[i]) * secmul
@@ -157,7 +157,7 @@ def song(_, message):
         )
         m.delete()
     except Exception as e:
-        m.edit("❌ Error")
+        m.edit("❌ HATA")
         print(e)
     try:
         os.remove(audio_file)
@@ -171,5 +171,5 @@ async def help(_, message):
     await message.reply_text(Text.helper.format(x=PREFIX))
 
 
-logging.info("Started the bot.")
+logging.info("Bot başlatıldı.")
 pytgcalls.run()
