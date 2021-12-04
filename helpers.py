@@ -1,20 +1,20 @@
 class Text:
-    how_to = "`Either reply to an audio file or give me a youtube link to play from!`"
-    not_yet = "`This is not yet supported!`"
-    dl = "`Downloading...`"
+    how_to = "`Ya bir ses dosyasına yanıt verin ya da bana oynatmam için bir youtube bağlantısı verin!`"
+    not_yet = "`Bu henüz desteklenmiyor!"
+    dl = "`İndiriliyor...`"
     helper = """
-**Available Commands:**\n
-  - `{x}on` - __check if the (user)bot is online.__
-  - `{x}stream <url/reply to song file>` - __play song in vc.__ 
-  - `{x}pause` - __pause track.__
-  - `{x}resume` - __resumes the paused track.__
-  - `{x}song <song name>` - __donwload the song.__
+**Kullanılabilir Komutlar:**\n
+  - `{x}alive` - __Botun çevrimiçi olup olmadığını kontrol edin.__
+  - `{x}oynat <url/şarkı dosyasına yanıt ver>` - __Sesli Sohbet'de şarkı çal.__ 
+  - `{x}durdur` - __parçayı duraklat.__
+  - `{x}devam` - __duraklatılmış parçayı devam ettirir.__
+  - `{x}indir <şarkı adı>` - __şarkı indir__
 
-**Support:** __@BotzHubChat__."""
+**Support:** __@PyhsicalBeing__."""
 
 
 async def play_a_song(pycalls, message, song):
     try:
         await pycalls.stream(message.chat.id, song)
     except Exception as e:
-        await message.reply_text(f"ERROR:\n{e}")
+        await message.reply_text(f"HATA:\n{e}")
