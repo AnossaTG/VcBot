@@ -1,6 +1,6 @@
 class Text:
     how_to = "`Ya bir ses dosyasına yanıt verin ya da bana oynatmam için bir youtube bağlantısı verin!`"
-    not_yet = "`Bu henüz desteklenmiyor!"
+    not_yet = "`Bu henüz desteklenmiyor!`"
     dl = "`İndiriliyor...`"
     helper = """
 **Kullanılabilir Komutlar:**\n
@@ -10,7 +10,7 @@ class Text:
   - `{x}devam` - __duraklatılmış parçayı devam ettirir.__
   - `{x}indir <şarkı adı>` - __şarkı indir__
 
-**Support:** __@PyhsicalBeing__."""
+**Support:** __@PhysicalBeing__."""
 
 
 async def play_a_song(pycalls, message, song):
