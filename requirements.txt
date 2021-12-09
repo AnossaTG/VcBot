@@ -1,4 +1,4 @@
-py-tgcalls-wrapper
+py-tgcalls
 python-decouple
 youtube-dl
 pyrogram==1.2.9
