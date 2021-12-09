@@ -1,6 +1,6 @@
 from pyrogram import Client, filters
 from pytgcalls import PyTgCalls
-from pytgcalls_wrapper import Wrapper
+from pytgcalls import Wrapper
 from decouple import config
 import logging
 from helpers import play_a_song, Text
